@@ -1,9 +1,10 @@
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 from django.views import generic
 
 from gallery.helpers import PhotoAttrsMixin
 
 
-class PhotoCreate(PhotoAttrsMixin, generic.CreateView):
+class PhotoCreate(LoginRequiredMixin, PhotoAttrsMixin, generic.CreateView):
     extra_context = {'block_title': 'Add new photo'}
 
     def form_valid(self, form):
@@ -11,8 +12,12 @@ class PhotoCreate(PhotoAttrsMixin, generic.CreateView):
         return super(PhotoCreate, self).form_valid(form)
 
 
-class PhotoUpdate(PhotoAttrsMixin, generic.UpdateView):
+class PhotoUpdate(PermissionRequiredMixin, PhotoAttrsMixin, generic.UpdateView):
     extra_context = {'block_title': 'Update photo'}
+    permission_required = 'gallery.change_photo'
+
+    def has_permission(self):
+        return super().has_permission() or self.request.user == self.get_object().author
 
 
 class PhotoList(PhotoAttrsMixin, generic.ListView):
@@ -24,5 +29,9 @@ class PhotoDetail(PhotoAttrsMixin, generic.DetailView):
     template_name = 'gallery/photo_detail.html'
 
 
-class PhotoDelete(PhotoAttrsMixin, generic.DeleteView):
-    pass
+class PhotoDelete(PermissionRequiredMixin, PhotoAttrsMixin, generic.DeleteView):
+    permission_required = 'gallery.delete_photo'
+
+    def has_permission(self):
+        return super().has_permission() or self.request.user == self.get_object().author
+

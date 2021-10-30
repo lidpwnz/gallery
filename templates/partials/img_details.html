@@ -4,16 +4,22 @@
         <div class="fw-bold">
             {{ photo.author.username }}
         </div>
-        {% if user.is_authenticated and user == photo.author %}
-            <div class="small d-flex">
+        <div class="small d-flex">
+
+            {% if perms.gallery.change_photo or user == photo.author %}
                 <a href="{% url 'photo_update' photo.pk %}"
-                   class="text-decoration-none text-white btn btn-warning me-2">Update</a>
+                   class="text-decoration-none text-white btn btn-warning me-2">
+                    Update
+                </a>
+            {% endif %}
+
+            {% if perms.gallery.delete_photo or user == photo.author %}
                 <form action="{% url 'photo_delete' photo.pk %}" method="post">
                     {% csrf_token %}
                     <button class="btn btn-danger" onclick="return confirm('Вы уверены?')">Delete</button>
                 </form>
-            </div>
-        {% endif %}
+            {% endif %}
+        </div>
     </div>
     <a href="{% url 'photo_detail' photo.pk %}"><img src="{{ photo.img.url }}" class="card-img-top" alt=""></a>
     <div class="card-body">
