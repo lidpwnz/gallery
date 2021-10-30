@@ -19,6 +19,8 @@ $(document).ready(() => {
         return result
     }
 
+    const removeCommentBtn = $('.remove_comment')
+
     favButtons.on('click', function (e) {
         e.preventDefault();
         const photoId = e.target.dataset.photoId
@@ -90,9 +92,10 @@ $(document).ready(() => {
         })
             .then(res => {
                 $('#comments').prepend(
-                    `<div class="card mb-3">
+                    `<div class="card mb-3" id="comment-${res.id}">
                         <div class="card-header">
-                            ${moment(res['created_at']).format('L')} | ${res['author'].username}
+                            <span>${moment(res['created_at']).format('L')} | ${res['author'].username}</span>
+                            <a href="" class="remove_comment" data-comment-id="${res.id}"><i class="far fa-trash-alt"></i></a>
                         </div>
                         <div class="card-body">
                             <blockquote class="blockquote mb-0">
@@ -104,4 +107,19 @@ $(document).ready(() => {
             })
             .catch(res => console.log(res))
     })
+
+    removeCommentBtn.on('click', function (e) {
+        e.preventDefault();
+
+        const commentId = $(this).data()['commentId']
+
+        $.ajax({
+            url: `http://localhost:8000/api/v1/gallery/comments/${commentId}/`,
+            method: 'delete',
+            headers: {'X-CSRFToken': Cookies.get('csrftoken')},
+        })
+            .then(res => $(`#comment-${commentId}`).remove())
+            .catch(res => console.log(res))
+    })
+
 })

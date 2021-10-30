@@ -29,9 +29,10 @@
         </form>
         <div id="comments">
             {% for comment in photo.comment_set.all %}
-                <div class="card mb-3">
-                    <div class="card-header">
-                        {{ comment.created_at|date:'d.m.Y' }} | {{ comment.author.username }}
+                <div class="card mb-3" id="comment-{{ comment.id }}">
+                    <div class="card-header d-flex justify-content-between">
+                        <span>{{ comment.created_at|date:'d.m.Y' }} | {{ comment.author.username }}</span>
+                        <a href="" class="remove_comment" data-comment-id="{{ comment.id }}"><i class="far fa-trash-alt"></i></a>
                     </div>
                     <div class="card-body">
                         <blockquote class="blockquote mb-0">
