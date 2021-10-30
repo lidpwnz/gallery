@@ -1,0 +1,15 @@
+{% extends "base.html"%}
+
+{% block content %}
+    <h2>{{ object.username }}'s Profile</h2>
+    <p>First Name: {{ object.first_name }}</p>
+    <p>Last Name: {{ object.last_name }}</p>
+    <p>Email: {{ object.email }}</p>
+
+    <div class="d-flex justify-content-center align-items-center flex-column">
+        <h3>Favourites</h3>
+        {% for photo in object.favourites.all %}
+            {% include 'partials/img_details.html' %}
+        {% endfor %}
+    </div>
+{% endblock %}

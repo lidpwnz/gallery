@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form action="{% url 'login' %}" method="post" id="login-form"
+          class="d-flex justify-content-center align-items-center flex-column mt-5">
+        {% csrf_token %}
+        <label class="form-label">
+            Username
+            <input type="text" name="username" placeholder="Username" required class="form-control mb-3">
+        </label>
+
+        <label class="form-label">
+            Password
+            <input type="password" name="password" placeholder="Password" required class="form-control mb-3">
+        </label>
+
+        <button class="btn btn-success">Submit</button>
+    </form>
+{% endblock %}
