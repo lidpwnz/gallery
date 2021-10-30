@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -12,11 +11,11 @@ class FavouritesGateway(APIView):
 
     def add(self, photo):
         photo.users_in_favourites.add(self.request.user)
-        return 'successfully added'
+        return 'Successfully added'
 
     def remove(self, photo):
         photo.users_in_favourites.remove(self.request.user)
-        return 'successfully removed'
+        return 'Successfully removed'
 
     def post(self, request, *args, **kwargs):
         photo = self.get_photo()

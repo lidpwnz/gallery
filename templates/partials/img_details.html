@@ -34,12 +34,12 @@
 
         {% if user.is_authenticated %}
 
-            <button class="btn btn-danger remove-from-fav-btn {% if user not in photo.users_in_favourites.all %}d-none{% endif %}"
+            <button class="btn btn-danger fav-action-btn" {% if user not in photo.users_in_favourites.all %}style="display: none"{% endif %}
                     id="remove-from-fav-btn-{{ photo.id }}" data-photo-id="{{ photo.id }}">
                 Remove from favourites
             </button>
 
-            <button class="btn btn-success add-to-fav-btn {% if user in photo.users_in_favourites.all %}d-none{% endif %}"
+            <button class="btn btn-success fav-action-btn" {% if user in photo.users_in_favourites.all %}style="display: none"{% endif %}
                     id="add-to-fav-btn-{{ photo.id }}" data-photo-id="{{ photo.id }}">
                 Add to favourites
             </button>
