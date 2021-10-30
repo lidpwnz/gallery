@@ -43,6 +43,21 @@ $(document).ready(() => {
                     rmFromFavBtn.show()
                     addToFavBtn.hide();
                 }
+
+                const usersInFavBlock = $('.in-fav-list')
+
+                if (usersInFavBlock) {
+                    usersInFavBlock.empty();
+
+                    $.get(`${baseUrl}/gallery/${photoId}/`).done(res => {
+                        console.log(res)
+                        for (let user of res['users_in_favourites']) {
+                            usersInFavBlock.append(
+                                `<li class="list-group-item"><a href="http://localhost:8000/accounts/${user.id}/profile">${user.username}</a></li>`
+                            )
+                        }
+                    })
+                }
             })
     })
 })

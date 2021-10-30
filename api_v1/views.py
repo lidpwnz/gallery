@@ -1,7 +1,9 @@
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.generics import RetrieveAPIView
 
+from api_v1.serializers import PhotoSerializer
 from gallery.models import Photo
 
 
@@ -28,3 +30,8 @@ class FavouritesGateway(APIView):
             pass
 
         return Response(data={'detail': msg})
+
+
+class PhotoDetail(RetrieveAPIView):
+    serializer_class = PhotoSerializer
+    queryset = Photo.objects.all()

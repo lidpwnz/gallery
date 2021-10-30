@@ -1,4 +1,4 @@
-{% extends "base.html"%}
+{% extends "base.html" %}
 
 {% block content %}
     <h2>{{ object.username }}'s Profile</h2>
@@ -8,8 +8,10 @@
 
     <div class="d-flex justify-content-center align-items-center flex-column">
         <h3>Favourites</h3>
-        {% for photo in object.favourites.all %}
-            {% include 'partials/img_details.html' %}
-        {% endfor %}
+        <div class="w-50">
+            {% for photo in object.favourites.all %}
+                {% include 'partials/img_details.html' %}
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
