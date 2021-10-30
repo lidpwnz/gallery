@@ -9,6 +9,15 @@ $(document).ready(() => {
 
     const favButtons = $('.fav-action-btn')
     const baseUrl = 'http://localhost:8000/api/v1'
+    const serializeData = array => {
+        let result = {}
+
+        for (let item of array) {
+            result[item['name']] = item['value']
+        }
+
+        return result
+    }
 
     favButtons.on('click', function (e) {
         e.preventDefault();
@@ -62,5 +71,37 @@ $(document).ready(() => {
                 })
                 .always(res => $(this).prop('disabled', false))
         }, 2000)
+    })
+
+    $('#comment-form').on('submit', function (e) {
+        e.preventDefault();
+
+        const actionUrl = $(this).attr('action')
+        const formData = serializeData($(this).serializeArray())
+        console.log(actionUrl)
+        console.log(formData)
+
+        $.ajax({
+            contentType: 'application/json',
+            url: actionUrl,
+            method: 'post',
+            data: JSON.stringify(formData),
+            headers: {'X-CSRFToken': Cookies.get('csrftoken')},
+        })
+            .then(res => {
+                $('#comments').prepend(
+                    `<div class="card mb-3">
+                        <div class="card-header">
+                            ${moment(res['created_at']).format('L')} | ${res['author'].username}
+                        </div>
+                        <div class="card-body">
+                            <blockquote class="blockquote mb-0">
+                                <footer class="blockquote-footer">${res.text}</footer>
+                            </blockquote>
+                        </div>
+                    </div>`
+                )
+            })
+            .catch(res => console.log(res))
     })
 })

@@ -21,20 +21,28 @@
     <h2 class="text-center">Comments</h2>
     <hr>
     <div class="comments-block">
-        {% for comment in photo.comment_set.all %}
-            <div class="card">
-                <div class="card-header">
-                    {{ comment.created_at }} | {{ comment.author.username }}
+        <form action="{% url 'comment_create_api' photo.pk %}" id="comment-form">
+            <label class="w-100">
+                <textarea name="text" placeholder="Place new comment" cols="30" rows="5"></textarea>
+            </label>
+            <button class="btn btn-primary mb-3">Submit</button>
+        </form>
+        <div id="comments">
+            {% for comment in photo.comment_set.all %}
+                <div class="card mb-3">
+                    <div class="card-header">
+                        {{ comment.created_at|date:'d.m.Y' }} | {{ comment.author.username }}
+                    </div>
+                    <div class="card-body">
+                        <blockquote class="blockquote mb-0">
+                            <footer class="blockquote-footer">{{ comment.text }}</footer>
+                        </blockquote>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <blockquote class="blockquote mb-0">
-                        <footer class="blockquote-footer">{{ comment.text }}</footer>
-                    </blockquote>
-                </div>
-            </div>
             {% empty %}
-            <h2 class="text-center my-5">Empty :c</h2>
-        {% endfor %}
+                <h2 class="text-center my-5">Empty :c</h2>
+            {% endfor %}
+        </div>
 
     </div>
 {% endblock %}
