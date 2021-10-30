@@ -1,0 +1,193 @@
+[
+{
+    "model": "gallery.photo",
+    "pk": 1,
+    "fields": {
+        "img": "avatars/celery_logo_wmeKhqS.png",
+        "title": "Celery",
+        "created_at": "2021-10-30T10:30:32.395Z",
+        "author": 2,
+        "users_in_favourites": [
+            3
+        ]
+    }
+},
+{
+    "model": "gallery.photo",
+    "pk": 2,
+    "fields": {
+        "img": "avatars/photo_2021-04-24_23.10.22.jpeg",
+        "title": "Mops",
+        "created_at": "2021-10-30T10:30:48.544Z",
+        "author": 2,
+        "users_in_favourites": [
+            3
+        ]
+    }
+},
+{
+    "model": "gallery.photo",
+    "pk": 3,
+    "fields": {
+        "img": "avatars/python.jpeg",
+        "title": "Python",
+        "created_at": "2021-10-30T10:31:04.270Z",
+        "author": 2,
+        "users_in_favourites": [
+            2,
+            3
+        ]
+    }
+},
+{
+    "model": "gallery.photo",
+    "pk": 4,
+    "fields": {
+        "img": "avatars/wp_1.jpeg",
+        "title": "Sync",
+        "created_at": "2021-10-30T10:43:27.540Z",
+        "author": 3,
+        "users_in_favourites": []
+    }
+},
+{
+    "model": "gallery.comment",
+    "pk": 1,
+    "fields": {
+        "text": "Hello world",
+        "photo": 3,
+        "author": 2,
+        "created_at": "2021-10-30T10:32:17.204Z"
+    }
+},
+{
+    "model": "gallery.comment",
+    "pk": 2,
+    "fields": {
+        "text": "It's working!",
+        "photo": 3,
+        "author": 2,
+        "created_at": "2021-10-30T10:32:23.331Z"
+    }
+},
+{
+    "model": "gallery.comment",
+    "pk": 3,
+    "fields": {
+        "text": "Cool language!",
+        "photo": 3,
+        "author": 2,
+        "created_at": "2021-10-30T10:32:39.400Z"
+    }
+},
+{
+    "model": "gallery.comment",
+    "pk": 4,
+    "fields": {
+        "text": "Is this dog?",
+        "photo": 2,
+        "author": 2,
+        "created_at": "2021-10-30T10:32:48.268Z"
+    }
+},
+{
+    "model": "gallery.comment",
+    "pk": 5,
+    "fields": {
+        "text": "nice hat",
+        "photo": 2,
+        "author": 2,
+        "created_at": "2021-10-30T10:33:00.414Z"
+    }
+},
+{
+    "model": "gallery.comment",
+    "pk": 12,
+    "fields": {
+        "text": "Nice library",
+        "photo": 1,
+        "author": 2,
+        "created_at": "2021-10-30T10:40:08.289Z"
+    }
+},
+{
+    "model": "gallery.comment",
+    "pk": 13,
+    "fields": {
+        "text": "Yeah, cool language!",
+        "photo": 3,
+        "author": 3,
+        "created_at": "2021-10-30T10:41:19.843Z"
+    }
+},
+{
+    "model": "gallery.comment",
+    "pk": 14,
+    "fields": {
+        "text": "this is my lovely !",
+        "photo": 3,
+        "author": 3,
+        "created_at": "2021-10-30T10:41:25.075Z"
+    }
+},
+{
+    "model": "gallery.comment",
+    "pk": 15,
+    "fields": {
+        "text": "is it a cat?",
+        "photo": 2,
+        "author": 3,
+        "created_at": "2021-10-30T10:41:37.963Z"
+    }
+},
+{
+    "model": "gallery.comment",
+    "pk": 16,
+    "fields": {
+        "text": "h,mmmmmmmm",
+        "photo": 2,
+        "author": 3,
+        "created_at": "2021-10-30T10:41:42.508Z"
+    }
+},
+{
+    "model": "gallery.comment",
+    "pk": 18,
+    "fields": {
+        "text": "wow",
+        "photo": 1,
+        "author": 3,
+        "created_at": "2021-10-30T10:41:55.027Z"
+    }
+},
+{
+    "model": "gallery.comment",
+    "pk": 19,
+    "fields": {
+        "text": "vegetable??????",
+        "photo": 1,
+        "author": 3,
+        "created_at": "2021-10-30T10:42:00.891Z"
+    }
+},
+{
+    "model": "gallery.comment",
+    "pk": 20,
+    "fields": {
+        "text": "it's goooood",
+        "photo": 4,
+        "author": 3,
+        "created_at": "2021-10-30T10:45:51.510Z"
+    }
+},
+{
+    "model": "gallery.comment",
+    "pk": 21,
+    "fields": {
+        "text": "i like it !",
+        "photo": 4,
+        "author": 3,
+        "created_at": "2021-10-30T10:45:56.251Z"
+    }
+}
+]
