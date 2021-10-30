@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-9">
+            {% include "partials/img_details.html" %}
+        </div>
+        <div class="col-3">
+            <div class="card my-4">
+                <div class="card-header bg-warning">
+                    In Favourites
+                </div>
+                <ul class="list-group list-group-flush in-fav-list">
+                    {% for usr in photo.users_in_favourites.all %}
+                        <li class="list-group-item"><a href="#">{{ usr.username }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

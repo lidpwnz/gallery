@@ -1,0 +1,43 @@
+<div class="card my-4" style="width:500px">
+    <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+        <div class="d-none"></div>
+        <div class="fw-bold">
+            {{ photo.author.username }}
+        </div>
+        {% if user.is_authenticated and user == photo.owner %}
+            <div class="small d-flex">
+                <a href="{% url 'photo_update' photo.pk %}"
+                   class="text-decoration-none text-white btn btn-warning me-2">Update</a>
+                <form action="{% url 'photo_delete' photo.pk %}" method="post">
+                    {% csrf_token %}
+                    <button class="btn btn-danger" onclick="return confirm('Вы уверены?')">Delete</button>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+    <a href="{% url 'photo_detail' photo.pk %}"><img src="{{ photo.img.url }}" class="card-img-top" alt=""></a>
+    <div class="card-body">
+        <p class="card-text d-flex justify-content-between align-center">
+            {{ photo.title }}
+            <small>
+                {{ photo.created_at }}
+            </small>
+        </p>
+
+        <div id="notification-{{ photo.id }}" class="alert "></div>
+
+        {% if user.is_authenticated %}
+
+            <button class="btn btn-danger remove-from-fav-btn {% if user not in photo.users_in_favourites.all %}d-none{% endif %}"
+                    id="remove-from-fav-btn-{{ photo.id }}" data-photo-id="{{ photo.id }}">
+                Remove from favourites
+            </button>
+
+            <button class="btn btn-success add-to-fav-btn {% if user in photo.users_in_favourites.all %}d-none{% endif %}"
+                    id="add-to-fav-btn-{{ photo.id }}" data-photo-id="{{ photo.id }}">
+                Add to favourites
+            </button>
+
+        {% endif %}
+    </div>
+</div>
