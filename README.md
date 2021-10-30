@@ -1,12 +1,14 @@
 Данные от существующих пользователей
 
-admin
-username: admin
+admin <br>
+username: admin <br>
 password: root
 
-users
-username: Bob
+users <br>
+username: Bob <br>
 password: username123
 
-username: John
+username: John <br>
 password: username123
+
+Фикстуры находятся в директории source
