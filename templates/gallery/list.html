@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
-    {% for photo in object_list %}
-        {% include "partials/img_details.html" %}
-    {% empty %}
-        <h2 class="text-center mt-5">There are no photos :(</h2>
-    {% endfor %}
+    <div class="gallery-block">
+        {% for photo in object_list %}
+            {% include "partials/img_details.html" %}
+        {% empty %}
+            <h2 class="text-center mt-5">There are no photos :(</h2>
+        {% endfor %}
+    </div>
 {% endblock %}

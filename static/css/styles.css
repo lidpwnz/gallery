@@ -97,3 +97,10 @@
   border: unset;
   width: 100%;
 }
+
+.gallery-block {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}

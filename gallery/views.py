@@ -21,6 +21,7 @@ class PhotoList(PhotoAttrsMixin, generic.ListView):
 
 class PhotoDetail(PhotoAttrsMixin, generic.DetailView):
     context_object_name = 'photo'
+    template_name = 'gallery/photo_detail.html'
 
 
 class PhotoDelete(PhotoAttrsMixin, generic.DeleteView):

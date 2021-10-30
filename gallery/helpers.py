@@ -1,4 +1,5 @@
 from django.shortcuts import redirect
+from django.urls import reverse_lazy
 
 from gallery.models import Photo
 
@@ -7,7 +8,7 @@ class PhotoAttrsMixin:
     model = Photo
     fields = ['img', 'title']
     template_name = 'gallery/photo.html'
-    success_url = 'gallery'
+    success_url = reverse_lazy('gallery')
 
 
 def redirect_to_gallery(request):
