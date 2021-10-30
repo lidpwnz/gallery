@@ -93,7 +93,7 @@ $(document).ready(() => {
             .then(res => {
                 $('#comments').prepend(
                     `<div class="card mb-3" id="comment-${res.id}">
-                        <div class="card-header">
+                        <div class="card-header d-flex justify-content-between">
                             <span>${moment(res['created_at']).format('L')} | ${res['author'].username}</span>
                             <a href="" class="remove_comment" data-comment-id="${res.id}"><i class="far fa-trash-alt"></i></a>
                         </div>
@@ -106,6 +106,9 @@ $(document).ready(() => {
                 )
             })
             .catch(res => console.log(res))
+            .always(() => {
+                $(this).find('textarea').val('')
+            })
     })
 
     removeCommentBtn.on('click', function (e) {
