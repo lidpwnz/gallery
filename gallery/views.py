@@ -28,6 +28,10 @@ class PhotoDetail(PhotoAttrsMixin, generic.DetailView):
     context_object_name = 'photo'
     template_name = 'gallery/photo_detail.html'
 
+    def get_context_data(self, **kwargs):
+        kwargs['comments'] = self.object.comment_set.order_by('-created_at')
+        return super(PhotoDetail, self).get_context_data(**kwargs)
+
 
 class PhotoDelete(PermissionRequiredMixin, PhotoAttrsMixin, generic.DeleteView):
     permission_required = 'gallery.delete_photo'

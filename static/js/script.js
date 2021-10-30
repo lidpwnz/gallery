@@ -17,47 +17,50 @@ $(document).ready(() => {
         const addToFavBtn = $(`#add-to-fav-btn-${photoId}`)
         const rmFromFavBtn = $(`#remove-from-fav-btn-${photoId}`)
 
-        console.log(addToFavBtn)
-        console.log(rmFromFavBtn)
+        $(this).prop('disabled', true)
 
-        $.ajax({
-            url: `${baseUrl}/${photoId}/favourites_gateway/`,
-            method: 'post',
-            headers: {'X-CSRFToken': Cookies.get('csrftoken')}
-        })
-            .done(res => {
-                notificationBlock.addClass('alert-success');
-                notificationBlock.text(res['detail']);
-
-                setTimeout(() => {
-                    notificationBlock.removeClass('alert-success');
-                    notificationBlock.text('');
-                }, 5000)
-
-                const addBtnStyleProp = addToFavBtn.prop('style')
-
-                if (addBtnStyleProp && addBtnStyleProp['display'] === 'none') {
-                    addToFavBtn.show();
-                    rmFromFavBtn.hide();
-                } else {
-                    rmFromFavBtn.show()
-                    addToFavBtn.hide();
-                }
-
-                const usersInFavBlock = $('.in-fav-list')
-
-                if (usersInFavBlock) {
-                    usersInFavBlock.empty();
-
-                    $.get(`${baseUrl}/gallery/${photoId}/`).done(res => {
-                        console.log(res)
-                        for (let user of res['users_in_favourites']) {
-                            usersInFavBlock.append(
-                                `<li class="list-group-item"><a href="http://localhost:8000/accounts/${user.id}/profile">${user.username}</a></li>`
-                            )
-                        }
-                    })
-                }
+        // Имитация времени ожидания выполнения запроса,
+        // т.к. Запрос выполняется моментально и не видно что кнопка блокируется
+        setTimeout(() => {
+            $.ajax({
+                url: `${baseUrl}/${photoId}/favourites_gateway/`,
+                method: 'post',
+                headers: {'X-CSRFToken': Cookies.get('csrftoken')}
             })
+                .done(res => {
+                    notificationBlock.addClass('alert-success');
+                    notificationBlock.text(res['detail']);
+
+                    setTimeout(() => {
+                        notificationBlock.removeClass('alert-success');
+                        notificationBlock.text('');
+                    }, 5000)
+
+                    const addBtnStyleProp = addToFavBtn.prop('style')
+
+                    if (addBtnStyleProp && addBtnStyleProp['display'] === 'none') {
+                        addToFavBtn.show();
+                        rmFromFavBtn.hide();
+                    } else {
+                        rmFromFavBtn.show()
+                        addToFavBtn.hide();
+                    }
+
+                    const usersInFavBlock = $('.in-fav-list')
+
+                    if (usersInFavBlock) {
+                        usersInFavBlock.empty();
+
+                        $.get(`${baseUrl}/gallery/${photoId}/`).done(res => {
+                            for (let user of res['users_in_favourites']) {
+                                usersInFavBlock.append(
+                                    `<li class="list-group-item"><a href="http://localhost:8000/accounts/${user.id}/profile">${user.username}</a></li>`
+                                )
+                            }
+                        })
+                    }
+                })
+                .always(res => $(this).prop('disabled', false))
+        }, 2000)
     })
 })
