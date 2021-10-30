@@ -2,9 +2,9 @@
 
 {% block content %}
     <h2>{{ object.username }}'s Profile</h2>
-    <p>First Name: {{ object.first_name }}</p>
-    <p>Last Name: {{ object.last_name }}</p>
-    <p>Email: {{ object.email }}</p>
+    <p>First Name: {% if object.first_name %} {{ object.first_name }} {% else %} Not implemented {% endif %}</p>
+    <p>Last Name: {% if object.last_name %} {{ object.last_name }} {% else %} Not implemented {% endif %}</p>
+    <p>Email: {% if object.email %} {{ object.email }} {% else %} Not implemented {% endif %}</p>
 
     <div class="d-flex justify-content-center align-items-center flex-column">
         <h3>Favourites</h3>
