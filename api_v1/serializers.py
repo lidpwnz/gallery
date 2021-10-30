@@ -21,11 +21,12 @@ class PhotoSerializer(serializers.ModelSerializer):
 
 class CommentSerializer(serializers.ModelSerializer):
     author = UserSerializer(read_only=True)
+    photo = PhotoSerializer(read_only=True)
 
     class Meta:
         model = Comment
         fields = ['id', 'text', 'author', 'photo', 'created_at']
-        read_only_fields = ['author', 'photo', 'created_at']
+        read_only_fields = ['created_at']
 
     def __init__(self, *args, **kwargs):
         super(CommentSerializer, self).__init__(*args, **kwargs)
@@ -33,7 +34,7 @@ class CommentSerializer(serializers.ModelSerializer):
         request = self.context.get('request')
         if request.method == 'POST':
             author_field = self.fields['author']
-            self.fields['photo'].read_only = False
+            self.fields['photo'] = serializers.PrimaryKeyRelatedField(queryset=Photo.objects.all())
 
             author_field.read_only = False
             author_field.default = request.user
