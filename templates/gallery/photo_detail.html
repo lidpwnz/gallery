@@ -21,18 +21,24 @@
     <h2 class="text-center">Comments</h2>
     <hr>
     <div class="comments-block">
-        <form action="{% url 'comment_create_api' photo.pk %}" id="comment-form">
-            <label class="w-100">
-                <textarea name="text" placeholder="Place new comment" cols="30" rows="5"></textarea>
-            </label>
-            <button class="btn btn-primary mb-3">Submit</button>
-        </form>
+        {% if user.is_authenticated %}
+            <form action="{% url 'comment_create_api' photo.pk %}" id="comment-form">
+                <label class="w-100">
+                    <textarea name="text" placeholder="Place new comment" cols="30" rows="5"></textarea>
+                </label>
+                <button class="btn btn-primary mb-3">Submit</button>
+            </form>
+        {% endif %}
         <div id="comments">
-            {% for comment in photo.comment_set.all %}
+            {% for comment in comments %}
                 <div class="card mb-3" id="comment-{{ comment.id }}">
                     <div class="card-header d-flex justify-content-between">
-                        <span>{{ comment.created_at|date:'d.m.Y' }} | {{ comment.author.username }}</span>
-                        <a href="" class="remove_comment" data-comment-id="{{ comment.id }}"><i class="far fa-trash-alt"></i></a>
+                        <span>{{ comment.created_at|date:'d.m.Y H:i' }} | {{ comment.author.username }}</span>
+
+                        {% if user == comment.author or perms.gallery.delete_photo %}
+                            <a href="" class="remove_comment" data-comment-id="{{ comment.id }}"><i
+                                    class="far fa-trash-alt"></i></a>
+                        {% endif %}
                     </div>
                     <div class="card-body">
                         <blockquote class="blockquote mb-0">

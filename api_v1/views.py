@@ -1,9 +1,12 @@
+from django.contrib.auth.models import User
+from django.contrib.sessions.models import Session
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import generics
+from rest_framework import generics, status
 
-from api_v1.serializers import PhotoSerializer, CommentSerializer
+from api_v1.permissions import IsAuthorOrHasPerm
+from api_v1.serializers import PhotoSerializer, CommentSerializer, UserSerializer
 from gallery.models import Photo, Comment
 
 
@@ -50,3 +53,4 @@ class CommentCreate(generics.CreateAPIView):
 class CommentDelete(generics.DestroyAPIView):
     serializer_class = CommentSerializer
     queryset = Comment.objects.all()
+    permission_classes = [IsAuthorOrHasPerm]

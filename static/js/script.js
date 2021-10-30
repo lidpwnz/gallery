@@ -1,4 +1,5 @@
 $(document).ready(() => {
+    moment.locale('kk')
     const inputs = $('input')
     const selects = $('select')
     const textarea = $('textarea')
@@ -80,8 +81,6 @@ $(document).ready(() => {
 
         const actionUrl = $(this).attr('action')
         const formData = serializeData($(this).serializeArray())
-        console.log(actionUrl)
-        console.log(formData)
 
         $.ajax({
             contentType: 'application/json',
@@ -94,7 +93,7 @@ $(document).ready(() => {
                 $('#comments').prepend(
                     `<div class="card mb-3" id="comment-${res.id}">
                         <div class="card-header d-flex justify-content-between">
-                            <span>${moment(res['created_at']).format('L')} | ${res['author'].username}</span>
+                            <span>${moment(res['created_at']).format('D.M.Y H:m')} | ${res['author'].username}</span>
                             <a href="" class="remove_comment" data-comment-id="${res.id}"><i class="far fa-trash-alt"></i></a>
                         </div>
                         <div class="card-body">
@@ -121,7 +120,7 @@ $(document).ready(() => {
             method: 'delete',
             headers: {'X-CSRFToken': Cookies.get('csrftoken')},
         })
-            .then(res => $(`#comment-${commentId}`).remove())
+            .then(() => $(`#comment-${commentId}`).remove())
             .catch(res => console.log(res))
     })
 
