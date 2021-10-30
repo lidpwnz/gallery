@@ -19,6 +19,17 @@ $(document).ready(() => {
 
         return result
     }
+    const setRemoveBtnEvent = (e, commentId) => {
+        e.preventDefault();
+
+        $.ajax({
+            url: `http://localhost:8000/api/v1/gallery/comments/${commentId}/`,
+            method: 'delete',
+            headers: {'X-CSRFToken': Cookies.get('csrftoken')},
+        })
+            .then(() => $(`#comment-${commentId}`).remove())
+            .catch(res => console.log(res))
+    }
 
     const removeCommentBtn = $('.remove_comment')
 
@@ -103,6 +114,10 @@ $(document).ready(() => {
                         </div>
                     </div>`
                 )
+
+                $('.remove_comment').on('click', function (e) {
+                    setRemoveBtnEvent(e, res.id)
+                })
             })
             .catch(res => console.log(res))
             .always(() => {
@@ -111,17 +126,7 @@ $(document).ready(() => {
     })
 
     removeCommentBtn.on('click', function (e) {
-        e.preventDefault();
-
-        const commentId = $(this).data()['commentId']
-
-        $.ajax({
-            url: `http://localhost:8000/api/v1/gallery/comments/${commentId}/`,
-            method: 'delete',
-            headers: {'X-CSRFToken': Cookies.get('csrftoken')},
-        })
-            .then(() => $(`#comment-${commentId}`).remove())
-            .catch(res => console.log(res))
+        setRemoveBtnEvent(e, $(this).data()['commentId'])
     })
 
 })
